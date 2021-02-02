@@ -16,11 +16,12 @@ public class GridTest {
     }
 
     @Test
-    void acceptsCorrectRows() {
+    void acceptsCorrect() {
         String[] input = new String[] {
-                "123",
-                "456",
-                "789"
+                "1234",
+                "3421",
+                "2143",
+                "4312"
         };
         Grid cut = new Grid(input);
         Assertions.assertTrue(cut.isAccepted());
@@ -29,9 +30,10 @@ public class GridTest {
     @Test
     void doesNotAcceptIncompleteRow() {
         String[] input = new String[] {
-                "120",
-                "456",
-                "789"
+                "1230",
+                "3421",
+                "2143",
+                "4312"
         };
         Grid cut = new Grid(input);
         Assertions.assertFalse(cut.isAccepted());
@@ -40,11 +42,47 @@ public class GridTest {
     @Test
     void doesNotAcceptIncorrectRow() {
         String[] input = new String[] {
-                "121",
-                "456",
-                "789"
+                "1231",
+                "3421",
+                "2143",
+                "4312"
         };
         Grid cut = new Grid(input);
         Assertions.assertFalse(cut.isAccepted());
+    }
+
+    @Test
+    void doesNotAcceptIncompleteColumn() {
+        String[] input = new String[] {
+                "1234",
+                "3421",
+                "2143",
+                "4310"
+        };
+        Grid cut = new Grid(input);
+        Assertions.assertFalse(cut.isAccepted());
+    }
+
+    @Test
+    void doesNotAcceptIncorrectColumn() {
+        String[] input = new String[] {
+                "1234",
+                "3421",
+                "2143",
+                "4314"
+        };
+        Grid cut = new Grid(input);
+        Assertions.assertFalse(cut.isAccepted());
+    }
+
+    @Test
+    void doesNotAcceptIncorrectSquare() {
+        String[] input = new String[] {
+                "1234",
+                "1421",
+                "2143",
+                "4312"
+        };
+        Grid cut = new Grid(input);
     }
 }

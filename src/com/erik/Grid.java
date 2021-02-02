@@ -19,8 +19,19 @@ public class Grid {
     }
 
     public boolean isAccepted() {
+        if (!isComplete()) return false;
         for (int i=0; i<size; i++) {
             if (!isRowAccepted(i)) return false;
+            if (!isColumnAccepted(i)) return false;
+        }
+        return true;
+    }
+
+    private boolean isComplete() {
+        for (int i=0; i<size; i++) {
+            for (int ii=0; ii<size; ii++) {
+                if (cells[i][ii].getValue() == 0) return false;
+            }
         }
         return true;
     }
@@ -29,7 +40,15 @@ public class Grid {
         Set<Integer> row = new HashSet<>();
         for (int j=0; j<size; j++) {
             Cell cell = cells[i][j];
-            if (cell.getValue()==0) return false;
+            if (!row.add(cell.getValue())) return false;
+        }
+        return true;
+    }
+
+    private boolean isColumnAccepted(int j) {
+        Set<Integer> row = new HashSet<>();
+        for (int i=0; i<size; i++) {
+            Cell cell = cells[i][j];
             if (!row.add(cell.getValue())) return false;
         }
         return true;
