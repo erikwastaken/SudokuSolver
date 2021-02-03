@@ -9,6 +9,15 @@ public class Grid {
     private int squareSize;
 
     public Grid(String[] input) {
+        parseInputArray(input);
+    }
+
+    public Grid(String input) {
+        String[] splits = input.split("\n");
+        parseInputArray(splits);
+    }
+
+    private void parseInputArray(String[] input) {
         this.size = input.length;
         this.squareSize = (int) Math.floor(Math.sqrt(this.size));
         this.cells = new Cell[size][size];
@@ -68,13 +77,17 @@ public class Grid {
         return result.toString();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        return toString().equals(o.toString());
+    }
+
     public boolean isRejected() {
         for (int i=0; i<size; i++) {
             if (isRowRejected(i)) return true;
             if (isColumnRejected(i)) return true;
         }
-        if (areSquaresRejected()) return true;
-        return false;
+        return areSquaresRejected();
     }
 
     private boolean areSquaresRejected() {
@@ -113,5 +126,18 @@ public class Grid {
             if (!seen.add(cell.getValue())) return true;
         }
         return false;
+    }
+
+    public Grid getFirstExtension() {
+        for (int i=0; i<size; i++) {
+            for (int ii=0; ii<size; ii++) {
+                if (cells[i][ii].getValue() == 0) {
+                    String[] splits = toString().split("\n");
+                    splits[i] = splits[i].substring(0,ii) + "1" + splits[i].substring(ii+1);
+                    return new Grid(splits);
+                }
+            }
+        }
+        return null;
     }
 }

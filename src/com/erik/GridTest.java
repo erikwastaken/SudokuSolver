@@ -189,4 +189,43 @@ public class GridTest {
             Assertions.assertTrue(cut.isRejected());
         }
     }
+
+    @Nested
+    class First {
+        @Test
+        void generatesFirstExtensionForInitialGrid() {
+            String[] input = new String[]{
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000"
+            };
+            Grid cut = new Grid(input);
+            Grid expected = new Grid("1000\n0000\n0000\n0000");
+            Assertions.assertEquals(expected, cut.getFirstExtension());
+        }
+
+        @Test
+        void generatesFirstExtensionForPartialGrid() {
+            Grid cut = new Grid("1234\n3410\n0000\n0000");
+            Grid expected = new Grid("1234\n3411\n0000\n0000");
+            Assertions.assertEquals(expected,cut.getFirstExtension());
+        }
+    }
+
+    @Nested
+    class Equals {
+        @Test
+        void returnsTrue_WhenToStringIdentical() {
+            String[] input1 = new String[]{
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000"
+            };
+            Grid g1 = new Grid(input1);
+            Grid g2 = new Grid("0000\n0000\n0000\n0000");
+            Assertions.assertEquals(g2, g1);
+        }
+    }
 }
