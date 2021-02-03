@@ -87,6 +87,8 @@ public class Grid {
 
     @Override
     public boolean equals(Object o) {
+        if (getClass() != o.getClass())
+            return false;
         return toString().equals(o.toString());
     }
 
@@ -157,6 +159,6 @@ public class Grid {
         return new Grid(splits,currentRow,currentColumn);
     }
 
-    public class NumberTooLarge extends Throwable {
+    public static class NumberTooLarge extends Throwable {
     }
 }

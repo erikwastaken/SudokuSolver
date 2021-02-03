@@ -239,9 +239,9 @@ public class GridTest {
         }
 
         @Test
-        void shouldThrowNumberTooLarge_WhenValueLargerThanSize() throws Grid.NumberTooLarge {
+        void shouldThrowNumberTooLarge_WhenValueLargerThanSize(){
             Grid cut = new Grid("4000\n0000\n0000\n0000");
-            Assertions.assertThrows(Grid.NumberTooLarge.class,() -> {cut.next();});
+            Assertions.assertThrows(Grid.NumberTooLarge.class, cut::next);
         }
     }
 }

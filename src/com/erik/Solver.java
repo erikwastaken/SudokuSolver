@@ -1,14 +1,12 @@
 package com.erik;
 
 public class Solver {
-    private Grid root;
-//    private Grid current;
+    private final Grid root;
     private boolean isFinished = false;
     private Grid solution;
 
     public Solver(String input) {
         this.root = new Grid(input);
-//        this.current = new Grid(input);
     }
 
     public String solve() {
