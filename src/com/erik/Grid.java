@@ -149,10 +149,14 @@ public class Grid {
         return null;
     }
 
-    public Grid next() {
+    public Grid next() throws NumberTooLarge {
         int currentValue = cells[currentRow][currentColumn].getValue();
+        if (currentValue == size) throw new NumberTooLarge();
         String[] splits = toString().split("\n");
         splits[currentRow] = splits[currentRow].substring(0,currentColumn) + ++currentValue + splits[currentRow].substring(currentColumn+1);
         return new Grid(splits,currentRow,currentColumn);
+    }
+
+    public class NumberTooLarge extends Throwable {
     }
 }

@@ -232,10 +232,16 @@ public class GridTest {
     @Nested
     class Next {
         @Test
-        void generatesNextOption() {
+        void generatesNextOption() throws Grid.NumberTooLarge {
             Grid cut = new Grid("1000\n0000\n0000\n0000");
             Grid expected = new Grid("2000\n0000\n0000\n0000");
             Assertions.assertEquals(expected,cut.next());
+        }
+
+        @Test
+        void shouldThrowNumberTooLarge_WhenValueLargerThanSize() throws Grid.NumberTooLarge {
+            Grid cut = new Grid("4000\n0000\n0000\n0000");
+            Assertions.assertThrows(Grid.NumberTooLarge.class,() -> {cut.next();});
         }
     }
 }
