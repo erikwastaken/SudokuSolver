@@ -73,21 +73,25 @@ public class Grid {
             if (isRowRejected(i)) return true;
             if (isColumnRejected(i)) return true;
         }
-        for (int i=0; i<size; i+=squareSize) {
-            if (isSquareRejected(i)) return true;
-        }
+        if (areSquaresRejected()) return true;
         return false;
     }
 
-    private boolean isSquareRejected(int i) {
-        Set<Integer> seen = new HashSet<>();
-        for (int j=i; j<i+squareSize; j++) {
-            for (int jj=0; jj<squareSize; jj++) {
-                Cell cell = cells[j][jj];
-                if (cell.getValue() == 0) continue;
-                if (!seen.add(cell.getValue())) return true;
+    private boolean areSquaresRejected() {
+        // take the size of the individual squares and generate the corresponding coordinates for the cells;
+        for (int k=0; k<squareSize; k++) {
+            for (int kk=0; kk<squareSize; kk++) {
+                Set<Integer> seen = new HashSet<>();
+                for (int j = k * squareSize; j < k*squareSize + squareSize; j++) {
+                    for (int jj = kk*squareSize; jj < kk*squareSize + squareSize; jj++) {
+                        Cell cell = cells[j][jj];
+                        if (cell.getValue() == 0) continue;
+                        if (!seen.add(cell.getValue())) return true;
+                    }
+                }
             }
         }
+
         return false;
     }
 
