@@ -228,4 +228,14 @@ public class GridTest {
             Assertions.assertEquals(g2, g1);
         }
     }
+
+    @Nested
+    class Next {
+        @Test
+        void generatesNextOption() {
+            Grid cut = new Grid("1000\n0000\n0000\n0000");
+            Grid expected = new Grid("2000\n0000\n0000\n0000");
+            Assertions.assertEquals(expected,cut.next());
+        }
+    }
 }

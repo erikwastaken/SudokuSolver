@@ -7,6 +7,8 @@ public class Grid {
     private Cell[][] cells;
     private int size;
     private int squareSize;
+    private int currentRow = 0;
+    private int currentColumn = 0;
 
     public Grid(String[] input) {
         parseInputArray(input);
@@ -15,6 +17,12 @@ public class Grid {
     public Grid(String input) {
         String[] splits = input.split("\n");
         parseInputArray(splits);
+    }
+
+    public Grid(String[] input, int row, int col) {
+        parseInputArray(input);
+        this.currentColumn = col;
+        this.currentRow = row;
     }
 
     private void parseInputArray(String[] input) {
@@ -134,10 +142,17 @@ public class Grid {
                 if (cells[i][ii].getValue() == 0) {
                     String[] splits = toString().split("\n");
                     splits[i] = splits[i].substring(0,ii) + "1" + splits[i].substring(ii+1);
-                    return new Grid(splits);
+                    return new Grid(splits,i,ii);
                 }
             }
         }
         return null;
+    }
+
+    public Grid next() {
+        int currentValue = cells[currentRow][currentColumn].getValue();
+        String[] splits = toString().split("\n");
+        splits[currentRow] = splits[currentRow].substring(0,currentColumn) + ++currentValue + splits[currentRow].substring(currentColumn+1);
+        return new Grid(splits,currentRow,currentColumn);
     }
 }
