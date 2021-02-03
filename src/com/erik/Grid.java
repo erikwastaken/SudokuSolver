@@ -6,9 +6,11 @@ import java.util.Set;
 public class Grid {
     private Cell[][] cells;
     private int size;
+    private int squareSize;
 
     public Grid(String[] input) {
         this.size = input.length;
+        this.squareSize = (int) Math.floor(Math.sqrt(this.size));
         this.cells = new Cell[size][size];
         for (int i = 0; i<size; i++) {
             String[] splits = input[i].split("");
@@ -64,5 +66,48 @@ public class Grid {
             result.append("\n");
         }
         return result.toString();
+    }
+
+    public boolean isRejected() {
+        for (int i=0; i<size; i++) {
+            if (isRowRejected(i)) return true;
+            if (isColumnRejected(i)) return true;
+        }
+        for (int i=0; i<size; i+=squareSize) {
+            if (isSquareRejected(i)) return true;
+        }
+        return false;
+    }
+
+    private boolean isSquareRejected(int i) {
+        Set<Integer> seen = new HashSet<>();
+        for (int j=i; j<i+squareSize; j++) {
+            for (int jj=0; jj<squareSize; jj++) {
+                Cell cell = cells[j][jj];
+                if (cell.getValue() == 0) continue;
+                if (!seen.add(cell.getValue())) return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isColumnRejected(int j) {
+        Set<Integer> seen = new HashSet<>();
+        for (int i=0; i<size; i++) {
+            Cell cell = cells[i][j];
+            if (cell.getValue() == 0) continue;
+            if (!seen.add(cell.getValue())) return true;
+        }
+        return false;
+    }
+
+    private boolean isRowRejected(int i) {
+        Set<Integer> seen = new HashSet<>();
+        for (int j=0; j<size; j++) {
+            Cell cell = cells[i][j];
+            if (cell.getValue() == 0) continue;
+            if (!seen.add(cell.getValue())) return true;
+        }
+        return false;
     }
 }
