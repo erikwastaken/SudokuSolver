@@ -1,11 +1,11 @@
 # SudokuSolver
 A basic SudokuSolver with backtracking
 
-## Concepts
+## What I learned
 - unit tests (JUnit 5)
 - backtracking algorithm
 
-## How to use
+## How to use it
 Build the project and run the Main class, providing the filename that contains the puzzle to solve (0 for empty cells)
 ```
 java -cp out/production/SudokuSolver com.erik.Main puzzle.txt
